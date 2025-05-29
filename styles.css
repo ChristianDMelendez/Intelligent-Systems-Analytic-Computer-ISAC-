@@ -9,6 +9,37 @@ body.dark-mode {
   background-color: #121212;
   color: #ffffff;
 }
+.main-container {
+  display: flex;
+}
+.sidebar {
+  width: 220px;
+  background-color: #f4f4f4;
+  padding: 1rem;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+}
+.sidebar h2 {
+  font-size: 1.1rem;
+}
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+.sidebar li {
+  padding: 6px 10px;
+  margin: 6px 0;
+  border-radius: 4px;
+  background: #ddd;
+  cursor: pointer;
+}
+.sidebar li:hover {
+  background-color: #ccc;
+}
+.content {
+  flex: 1;
+}
 header {
   padding: 1rem;
   background: #333;
