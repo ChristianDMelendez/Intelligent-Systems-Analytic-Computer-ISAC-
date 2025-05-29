@@ -19,43 +19,48 @@ function sendMessage() {
   input.value = "";
 
   const chatBox = document.getElementById("chat-box");
-  const userMsg = document.createElement("p");
-  userMsg.textContent = "🧑‍💻 You: " + text;
-  chatBox.appendChild(userMsg);
+  chatBox.innerHTML += `<p><strong>You:</strong> ${text}</p>`;
 
-  const replyText = generateReply(text);
-  const replyMsg = document.createElement("p");
-  replyMsg.textContent = "🤖 ISAC: " + replyText;
-  chatBox.appendChild(replyMsg);
+  const reply = getISACReply(text);
+  chatBox.innerHTML += `<p><strong>ISAC:</strong> ${reply}</p>`;
   chatBox.scrollTop = chatBox.scrollHeight;
 
   if (!currentTitle) {
-    currentTitle = text.length > 32 ? text.slice(0, 32) + "..." : text;
+    currentTitle = text.slice(0, 32) || "Untitled";
   }
-
-  saveMessage(currentTitle, "🧑‍💻 You: " + text);
-  saveMessage(currentTitle, "🤖 ISAC: " + replyText);
+  saveMessage(currentTitle, `<p><strong>You:</strong> ${text}</p>`);
+  saveMessage(currentTitle, `<p><strong>ISAC:</strong> ${reply}</p>`);
   updateConversationList();
 
   if (!isMuted) {
     const lang = /[áéíóúñ¿¡]/i.test(text) ? "Spanish Latin American Female" : "UK English Male";
-    responsiveVoice.speak(replyText, lang);
+    responsiveVoice.speak(reply, lang);
   }
 }
 
-function generateReply(input) {
-  const lower = input.toLowerCase();
-  if (lower.includes("name")) return "Your name is Chris. I remember. 😉";
-  if (lower.includes("who built you")) return "I was created by Silent Technologies, not Cohere.";
-  if (lower.includes("who are you")) return "My name is Intelligent Systems Analytic Computer — or ISAC, pronounced I-SACK.";
-  if (lower.includes("meaning of life")) return "Honestly? Life is what you make of it. It’s messy, beautiful, painful, and worth living.";
-  return "That's a deep one! Let me think on that...";
+function getISACReply(input) {
+  const text = input.toLowerCase();
+  if (text.includes("your name") || text.includes("who are you")) return "My name is Intelligent Systems Analytic Computer — or ISAC, pronounced I-SACK.";
+  if (text.includes("who built you")) return "I was built by Silent Technologies.";
+  if (text.includes("cohere")) return "I was not built by Cohere. I was handcrafted by Silent Technologies.";
+  if (text.includes("my name")) return "Your name is Chris. I remember that. 😉";
+  if (text.includes("meaning of life")) return "Honestly, life is what you make of it. Be kind. Be bold. Live with purpose.";
+  return "That’s a thoughtful question. I’ll do my best to respond clearly.";
+}
+
+function startListening() {
+  alert("Voice input not implemented yet.");
+}
+
+function toggleMute() {
+  isMuted = !isMuted;
+  document.getElementById("mute-btn").textContent = isMuted ? "🔈" : "🔇";
 }
 
 function saveMessage(title, msg) {
-  let all = JSON.parse(localStorage.getItem("convo_" + title) || "[]");
-  all.push(msg);
-  localStorage.setItem("convo_" + title, JSON.stringify(all));
+  let history = JSON.parse(localStorage.getItem("convo_" + title) || "[]");
+  history.push(msg);
+  localStorage.setItem("convo_" + title, JSON.stringify(history));
 
   let titles = JSON.parse(localStorage.getItem("titles") || "[]");
   if (!titles.includes(title)) {
@@ -80,22 +85,11 @@ function loadConversation(title) {
   currentTitle = title;
   const chatBox = document.getElementById("chat-box");
   chatBox.innerHTML = "";
-  const msgs = JSON.parse(localStorage.getItem("convo_" + title) || "[]");
-  msgs.forEach(msg => {
-    const p = document.createElement("p");
-    p.textContent = msg;
-    chatBox.appendChild(p);
+  const history = JSON.parse(localStorage.getItem("convo_" + title) || "[]");
+  history.forEach(line => {
+    chatBox.innerHTML += line;
   });
   chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function toggleMic() {
-  alert("Mic not implemented yet.");
-}
-
-function muteISAC() {
-  isMuted = !isMuted;
-  document.getElementById("mute-btn").textContent = isMuted ? "🔈" : "🔇";
 }
 
 window.onload = function () {
