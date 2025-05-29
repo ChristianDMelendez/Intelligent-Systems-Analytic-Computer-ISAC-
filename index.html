@@ -1,9 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ISAC | Silent Technologies</title>
+
+  <!-- Instantly apply dark mode if previously selected -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
   <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
 </head>
@@ -13,7 +21,9 @@
       <h1>ISAC 🧠</h1>
       <p class="subhead">Intelligent Systems Analytic Computer</p>
       <p class="tagline">Built by <strong>Silent Technologies</strong></p>
-      <button id="theme-toggle" onclick="toggleTheme()">🌚</button>
+
+      <!-- 🔘 Upgraded Dark Mode Button -->
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
     </header>
 
     <div id="chat-box"></div>
@@ -25,39 +35,25 @@
       <button id="mute-btn" onclick="muteISAC()" title="Mute AI Speech">🔇</button>
     </div>
   </div>
-  <script src="script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Project Title</title>
 
-  <!-- Apply dark mode instantly if previously selected -->
+  <!-- 🧠 Dark Mode Toggle Script -->
   <script>
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.classList.add('dark');
+    const themeToggle = document.getElementById('theme-toggle');
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+      });
+
+      // Reapply saved theme if not handled above
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
     }
   </script>
 
-  <!-- Link to your stylesheet -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Link to your JavaScript -->
-  <script defer src="script.js"></script>
-</head>
-<body>
-
-  <!-- 🔘 Dark Mode Toggle Button -->
-  <div class="dark-toggle-wrapper">
-    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
-  </div>
-
-  <!-- Your page content goes here -->
-  <h1>Hello World</h1>
-  <p>This is your awesome project with dark mode built in 😎</p>
-
+  <script src="script.js"></script>
 </body>
 </html>
