@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,13 +8,12 @@
   <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
 </head>
 <body>
-  <button class="toggle-btn" onclick="toggleMode()">🌗</button>
-
   <div class="chat-container">
     <header>
       <h1>ISAC 🧠</h1>
       <p class="subhead">Intelligent Systems Analytic Computer</p>
       <p class="tagline">Built by <strong>Silent Technologies</strong></p>
+      <button id="theme-toggle" onclick="toggleTheme()">🌚</button>
     </header>
 
     <div id="chat-box"></div>
@@ -26,7 +25,6 @@
       <button id="mute-btn" onclick="muteISAC()" title="Mute AI Speech">🔇</button>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
