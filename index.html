@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ISAC | Silent Technologies</title>
+  <title>ISAC | Intelligent Systems Analytic Computer</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
 </head>
 <body>
-  <div class="chat-container">
-    <header>
-      <h1>ISAC 🧠</h1>
-      <p class="subhead">Intelligent Systems Analytic Computer</p>
-      <p class="tagline">Built by <strong>Silent Technologies</strong></p>
-      <button id="theme-toggle" onclick="toggleTheme()">🌚</button>
-    </header>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Recent Conversations</h2>
+      <ul id="conversation-list"></ul>
+    </aside>
 
-    <div id="chat-box"></div>
+    <main class="chat-area">
+      <header>
+        <h1>ISAC 🧠</h1>
+        <p class="tagline">Intelligent Systems Analytic Computer</p>
+        <p class="creator">Built by <strong>Silent Technologies</strong></p>
+        <button class="toggle-btn" onclick="toggleMode()">🌗</button>
+      </header>
 
-    <div class="input-group">
-      <input type="text" id="user-input" placeholder="Ask ISAC anything..." autocomplete="off" />
-      <button onclick="sendMessage()">Send</button>
-      <button id="mic-btn" onclick="toggleMic()">🎙️</button>
-      <button id="mute-btn" onclick="muteISAC()" title="Mute AI Speech">🔇</button>
-    </div>
+      <div id="chat-box"></div>
+
+      <div class="input-group">
+        <input type="text" id="user-input" placeholder="Ask ISAC anything..." autocomplete="off" />
+        <button onclick="sendMessage()">Send</button>
+        <button id="mic-btn" onclick="toggleMic()">🎙️</button>
+        <button id="mute-btn" onclick="muteISAC()" title="Mute AI Speech">🔇</button>
+      </div>
+    </main>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
