@@ -1,4 +1,5 @@
 let isMuted = false;
+let currentTitle = null;
 
 function toggleMode() {
   document.body.classList.toggle("dark-mode");
@@ -28,6 +29,14 @@ function sendMessage() {
   chatBox.appendChild(replyMsg);
   chatBox.scrollTop = chatBox.scrollHeight;
 
+  if (!currentTitle) {
+    currentTitle = text.length > 32 ? text.slice(0, 32) + "..." : text;
+  }
+
+  saveMessage(currentTitle, "🧑‍💻 You: " + text);
+  saveMessage(currentTitle, "🤖 ISAC: " + replyText);
+  updateConversationList();
+
   if (!isMuted) {
     const lang = /[áéíóúñ¿¡]/i.test(text) ? "Spanish Latin American Female" : "UK English Male";
     responsiveVoice.speak(replyText, lang);
@@ -43,6 +52,43 @@ function generateReply(input) {
   return "That's a deep one! Let me think on that...";
 }
 
+function saveMessage(title, msg) {
+  let all = JSON.parse(localStorage.getItem("convo_" + title) || "[]");
+  all.push(msg);
+  localStorage.setItem("convo_" + title, JSON.stringify(all));
+
+  let titles = JSON.parse(localStorage.getItem("titles") || "[]");
+  if (!titles.includes(title)) {
+    titles.push(title);
+    localStorage.setItem("titles", JSON.stringify(titles));
+  }
+}
+
+function updateConversationList() {
+  const list = document.getElementById("conversation-list");
+  list.innerHTML = "";
+  const titles = JSON.parse(localStorage.getItem("titles") || "[]");
+  titles.forEach(title => {
+    const li = document.createElement("li");
+    li.textContent = title;
+    li.onclick = () => loadConversation(title);
+    list.appendChild(li);
+  });
+}
+
+function loadConversation(title) {
+  currentTitle = title;
+  const chatBox = document.getElementById("chat-box");
+  chatBox.innerHTML = "";
+  const msgs = JSON.parse(localStorage.getItem("convo_" + title) || "[]");
+  msgs.forEach(msg => {
+    const p = document.createElement("p");
+    p.textContent = msg;
+    chatBox.appendChild(p);
+  });
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 function toggleMic() {
   alert("Mic not implemented yet.");
 }
@@ -52,4 +98,7 @@ function muteISAC() {
   document.getElementById("mute-btn").textContent = isMuted ? "🔈" : "🔇";
 }
 
-window.onload = loadTheme;
+window.onload = function () {
+  loadTheme();
+  updateConversationList();
+};
