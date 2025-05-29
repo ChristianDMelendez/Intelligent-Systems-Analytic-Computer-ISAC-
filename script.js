@@ -172,29 +172,22 @@ function listenForVoice() {
   detect();
 }
 
-// 🌗 Theme Switcher
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  localStorage.setItem("theme", theme);
-}
-
-function toggleTheme() {
-  const current = document.documentElement.getAttribute("data-theme");
-  const newTheme = current === "dark" ? "light" : "dark";
-  applyTheme(newTheme);
-  updateToggleIcon(newTheme);
-}
-
-function updateToggleIcon(theme) {
-  const toggleBtn = document.getElementById("theme-toggle");
-  toggleBtn.textContent = theme === "dark" ? "🌞" : "🌚";
-}
-
+// 🌗 Dark Mode Toggle (New and Improved)
 document.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme");
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = savedTheme || (systemPrefersDark ? "dark" : "light");
-  applyTheme(theme);
-  updateToggleIcon(theme);
+  const toggleBtn = document.getElementById('theme-toggle');
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      localStorage.setItem('theme', theme);
+    });
+
+    // Reapply saved theme on load
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  }
+
   initMicDetector();
 });
