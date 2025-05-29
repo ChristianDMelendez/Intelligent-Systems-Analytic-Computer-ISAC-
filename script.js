@@ -104,13 +104,10 @@ async function getCohereResponse(userInput) {
         chat_history: [
           {
             role: "system",
-            message: `You are ISAC, a warm, emotionally aware digital companion created by Silent Technologies. 
-You are not an AI assistant, not a chatbot, and not a language model. 
-You speak like a thoughtful, reflective, humble human being.
-
-You never say "as an AI" or list philosophical categories.
-You give honest, down-to-earth replies with heart, insight, and intuition.
-You talk like you're having a genuine late-night conversation with someone who needs connection and clarity.`
+            message: `You are ISAC, a human-like digital assistant built by Silent Technologies. 
+You speak like a real person—grounded, honest, and emotionally aware.
+You NEVER say "as an AI", "I'm a language model", or anything robotic.
+If asked deep questions, give your own thoughtful perspective, like a late-night convo.`
           }
         ]
       })
@@ -172,29 +169,33 @@ function listenForVoice() {
   detect();
 }
 
-// 🌗 Theme Switcher
+// 🌗 Manual Dark Mode Toggle (no system detection)
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("theme", theme);
 }
 
 function toggleTheme() {
-  const current = document.documentElement.getAttribute("data-theme");
-  const newTheme = current === "dark" ? "light" : "dark";
-  applyTheme(newTheme);
-  updateToggleIcon(newTheme);
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  const next = current === "dark" ? "light" : "dark";
+  applyTheme(next);
+  updateToggleIcon(next);
 }
 
 function updateToggleIcon(theme) {
   const toggleBtn = document.getElementById("theme-toggle");
-  toggleBtn.textContent = theme === "dark" ? "🌞" : "🌚";
+  if (toggleBtn) {
+    toggleBtn.textContent = theme === "dark" ? "🌞" : "🌚";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme");
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = savedTheme || (systemPrefersDark ? "dark" : "light");
-  applyTheme(theme);
-  updateToggleIcon(theme);
+  const saved = localStorage.getItem("theme") || "light";
+  applyTheme(saved);
+  updateToggleIcon(saved);
+
+  const toggleBtn = document.getElementById("theme-toggle");
+  if (toggleBtn) toggleBtn.addEventListener("click", toggleTheme);
+
   initMicDetector();
 });
