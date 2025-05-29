@@ -28,3 +28,36 @@
   <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Project Title</title>
+
+  <!-- Apply dark mode instantly if previously selected -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
+  <!-- Link to your stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Link to your JavaScript -->
+  <script defer src="script.js"></script>
+</head>
+<body>
+
+  <!-- 🔘 Dark Mode Toggle Button -->
+  <div class="dark-toggle-wrapper">
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+
+  <!-- Your page content goes here -->
+  <h1>Hello World</h1>
+  <p>This is your awesome project with dark mode built in 😎</p>
+
+</body>
+</html>
