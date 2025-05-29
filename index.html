@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <title>ISAC - Your AI Companion</title>
-  <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ISAC | Silent Technologies</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
 </head>
 <body>
-  <div class="background"></div>
+  <div class="chat-container">
+    <header>
+      <h1>ISAC 🧠</h1>
+      <p class="subhead">Intelligent Systems Analytic Computer</p>
+      <p class="tagline">Built by <strong>Silent Technologies</strong></p>
+      <button id="theme-toggle" onclick="toggleTheme()">🌚</button>
+    </header>
 
-  <div class="container">
-    <h1><span class="highlight">ISAC</span> - Your AI Companion</h1>
-    <p class="tagline">Always listening. Always understanding. Always you.</p>
-    
-    <div class="buttons">
-      <button class="listen-btn" onclick="startListening()">🎙 Activate ISAC</button>
-      <button class="mute-btn" onclick="toggleMute()">🔇 Mute Mic</button>
+    <div id="chat-box"></div>
+
+    <div class="input-group">
+      <input type="text" id="user-input" placeholder="Ask ISAC anything..." autocomplete="off" />
+      <button onclick="sendMessage()">Send</button>
+      <button id="mic-btn" onclick="toggleMic()">🎙️</button>
+      <button id="mute-btn" onclick="muteISAC()" title="Mute AI Speech">🔇</button>
     </div>
-
-    <div id="status"></div>
   </div>
-
-  <script src="main.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
