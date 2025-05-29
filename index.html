@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ISAC | Silent Technologies</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
+</head>
+<body>
+  <div class="chat-container">
+    <header>
+      <h1>ISAC 🧠</h1>
+      <p class="subhead">Intelligent Systems Analytic Computer</p>
+      <p class="tagline">Built by <strong>Silent Technologies</strong></p>
+      <button id="theme-toggle" onclick="toggleTheme()">🌚</button>
+    </header>
+
+    <div id="chat-box"></div>
+
+    <div class="input-group">
+      <input type="text" id="user-input" placeholder="Ask ISAC anything..." autocomplete="off" />
+      <button onclick="sendMessage()">Send</button>
+      <button id="mic-btn" onclick="toggleMic()">🎙️</button>
+      <button id="mute-btn" onclick="muteISAC()" title="Mute AI Speech">🔇</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
