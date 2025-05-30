@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I.S.A.C | Silent Industries</title>
+  <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
+  <script>responsiveVoice.setDefaultVoice("Australian Male");</script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    h1 {
+      color: silver;
+      text-shadow: 0 0 8px white;
+      margin-top: 20px;
+      text-align: center;
+    }
+    #chatbox {
+      width: 100%;
+      max-width: 700px;
+      height: 300px;
+      background: #111;
+      border: 1px solid silver;
+      border-radius: 10px;
+      padding: 20px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      box-shadow: 0 0 12px silver;
+    }
+    .msg { margin-bottom: 10px; }
+    .user { color: white; }
+    .bot { color: silver; }
+    #input-area {
+      display: flex;
+      width: 100%;
+      max-width: 700px;
+    }
+    #user-input {
+      flex: 1;
+      padding: 10px;
+      font-size: 1rem;
+      background: #222;
+      color: white;
+      border: 1px solid silver;
+      border-right: none;
+      border-radius: 5px 0 0 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      background: silver;
+      color: black;
+      cursor: pointer;
+    }
+    button:hover {
+      background: white;
+    }
+    #memory-wrapper {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 700px;
+    }
+    #memory-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .memory-tab {
+      background: #222;
+      color: silver;
+      padding: 6px 10px;
+      border: 1px solid silver;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .memory-tab:hover {
+      background: silver;
+      color: black;
+    }
+    @media (max-width: 600px) {
+      #chatbox, #input-area, #memory-wrapper {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>I.S.A.C Terminal</h1>
+  <div id="chatbox"></div>
+
+  <div id="input-area">
+    <input type="text" id="user-input" placeholder="Type your command..." />
+    <button onclick="handleInput()">Send</button>
+    <button onclick="startMic()">🎤</button>
+  </div>
+
+  <div id="memory-wrapper">
+    <div id="memory-tabs"></div>
+    <button onclick="renderTabs()">🧠 Show Chat History</button>
+    <button onclick="clearMemory()">🗑️ Clear Chat History</button>
+  </div>
+
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const input = document.getElementById("user-input");
+    let memory = JSON.parse(localStorage.getItem("isac_memory") || "[]");
+    let session = sessionStorage.getItem("isac_session_id");
+
+    if (!session) {
+      session = `Session ${new Date().toLocaleString()}`;
+      sessionStorage.setItem("isac_session_id", session);
+    }
+
+    function appendMessage(text, sender) {
+      const div = document.createElement("div");
+      div.className = "msg " + sender;
+      div.textContent = text;
+      chatbox.appendChild(div);
+      chatbox.scrollTop = chatbox.scrollHeight;
+
+      const entry = { session, sender, text, timestamp: new Date().toISOString() };
+      memory.push(entry);
+      localStorage.setItem("isac_memory", JSON.stringify(memory));
+    }
+
+    function renderTabs() {
+      const tabContainer = document.getElementById("memory-tabs");
+      tabContainer.innerHTML = "";
+      const sessions = [...new Set(memory.map(m => m.session))];
+      sessions.forEach(sess => {
+        const tab = document.createElement("div");
+        tab.className = "memory-tab";
+        tab.textContent = sess;
+        tab.onclick = () => showSession(sess);
+        tabContainer.appendChild(tab);
+      });
+    }
+
+    function showSession(sess) {
+      chatbox.innerHTML = ""; // override main chat
+      const entries = memory.filter(m => m.session === sess);
+      entries.forEach(entry => {
+        const div = document.createElement("div");
+        div.textContent = `[${entry.sender.toUpperCase()}] ${entry.text}`;
+        div.className = "msg " + entry.sender;
+        chatbox.appendChild(div);
+      });
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function clearMemory() {
+      localStorage.removeItem("isac_memory");
+      memory = [];
+      renderTabs();
+      chatbox.innerHTML = "";
+    }
+
+    async function handleInput() {
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage("You: " + text, "user");
+      input.value = "";
+
+      const whoAmI = /(who\s*(are|r|made|created|built|is|u|owns|you)|what\s*(are|is)\s*(you|u)|your name|what are you called)/i;
+      if (whoAmI.test(text)) {
+        const fullID = "I am Intelligent Systems Analytic Computer, or I.S.A.C., a proprietary system developed by Christian Melendez of Silent Industries. Christian is a visionary technologist and digital creator focused on building innovative tools to empower individuals in the virtual space.";
+        appendMessage("I.S.A.C: " + fullID, "bot");
+        speak(fullID);
+        return;
+      }
+
+      const response = await fetch("https://api.cohere.ai/v1/chat", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer r3CY08vxFVoJgvmeiXth226N4YEuzY4Q6cK2oLrO",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: text,
+          temperature: 0.4,
+          max_tokens: 100,
+          connectors: [],
+          prompt_truncation: "AUTO"
+        })
+      });
+
+      const data = await response.json();
+      let reply = data.text || "I'm here to assist.";
+      reply = reply
+        .replace(/cohere/gi, "Silent Industries")
+        .replace(/Command,? (a )?large language model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
+        .replace(/I'm an AI model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
+        .replace(/[*_~#`<>[\]{}]/g, "");
+
+      appendMessage("I.S.A.C: " + reply, "bot");
+      speak(reply);
+    }
+
+    function speak(text) {
+      responsiveVoice.speak(text.replace(/[*_~#`<>[\]{}]/g, ""), "Australian Male", {
+        rate: 1,
+        fallback: true
+      });
+    }
+
+    function startMic() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) return alert("Mic not supported on this device.");
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-AU";
+      recognition.onresult = (e) => {
+        const transcript = e.results[0][0].transcript;
+        input.value = transcript;
+        handleInput();
+      };
+      recognition.start();
+    }
+
+    input.addEventListener("keypress", e => {
+      if (e.key === "Enter") handleInput();
+    });
+
+    renderTabs(); // show tabs on load
+  </script>
+</body>
+</html>

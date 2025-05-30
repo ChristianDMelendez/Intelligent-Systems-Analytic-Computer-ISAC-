@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome | Chriz-Chen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .intro-container {
+      text-align: center;
+      animation: fadeIn 2s ease-in;
+      z-index: 1;
+      position: relative;
+    }
+
+    .intro-line1,
+    .intro-line2 {
+      font-size: 2rem;
+      color: silver;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+    }
+
+    .intro-line1.animate {
+      border-right: 2px solid white;
+      animation: typing 3s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+    }
+
+    .intro-line2.animate {
+      border-right: 2px solid white;
+      animation: typing2 4s steps(60, end) forwards, blink-caret 0.75s step-end infinite;
+    }
+
+    .enter-btn {
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 30px;
+      background: silver;
+      color: black;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 1;
+    }
+
+    .enter-btn:hover {
+      background: white;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes typing2 {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink-caret {
+      0%,
+      100% {
+        border-color: transparent;
+      }
+      50% {
+        border-color: white;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+  <script>
+    function runTypingAnimation() {
+      const line1 = document.querySelector('.intro-line1');
+      const line2 = document.querySelector('.intro-line2');
+
+      line1.classList.add('animate');
+
+      setTimeout(() => {
+        line1.style.borderRight = 'none';
+        line2.classList.add('animate');
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', runTypingAnimation);
+  </script>
+</head>
+<body>
+  <div class="intro-container">
+    <div class="intro-line1">Welcome Division Agent</div>
+    <div class="intro-line2">I'm Intelligent Systems Analytic Computer (ISAC)</div>
+    <button class="enter-btn" onclick="location.href='BotPage.html'">Enter Site</button>
+  </div>
+</body>
+</html>
