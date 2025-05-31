@@ -40,10 +40,10 @@
     .intro-line2 {
       font-size: 2rem;
       color: silver;
-      white-space: nowrap;
       overflow: hidden;
       width: 0;
       display: inline-block;
+      white-space: nowrap;
     }
 
     .intro-line1.animate {
@@ -98,14 +98,16 @@
     @media (max-width: 600px) {
       .intro-line1.animate,
       .intro-line2.animate {
-        white-space: normal !important;
-        word-break: break-word;
-        overflow: visible;
+        animation: none;
+        width: auto;
+        white-space: normal;
       }
 
       .intro-line1,
       .intro-line2 {
         font-size: 1.5rem;
+        display: block;
+        width: 100%;
       }
 
       .enter-btn {
