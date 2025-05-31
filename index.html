@@ -49,9 +49,7 @@
       visibility: hidden;
     }
 
-    .intro-line.animate1,
-    .intro-line.animate2,
-    .intro-line.animate3 {
+    .intro-line.visible {
       visibility: visible;
     }
 
@@ -135,18 +133,20 @@
       const line2 = document.getElementById('line2');
       const line3 = document.getElementById('line3');
 
-      line1.classList.add('animate1');
-
+      line1.classList.add('visible', 'animate1');
       line1.addEventListener('animationend', () => {
         line1.classList.add('done');
-        line2.classList.add('animate2');
+        line1.classList.remove('animate1');
 
+        line2.classList.add('visible', 'animate2');
         line2.addEventListener('animationend', () => {
           line2.classList.add('done');
-          line3.classList.add('animate3');
+          line2.classList.remove('animate2');
 
+          line3.classList.add('visible', 'animate3');
           line3.addEventListener('animationend', () => {
             line3.classList.add('done');
+            line3.classList.remove('animate3');
           }, { once: true });
         }, { once: true });
       }, { once: true });
