@@ -11,20 +11,15 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
     body {
       background-color: #000;
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1rem;
+      overflow: hidden;
     }
 
     .intro-container {
@@ -32,18 +27,15 @@
       animation: fadeIn 2s ease-in;
       z-index: 1;
       position: relative;
-      width: 100%;
-      max-width: 90vw;
     }
 
     .intro-line1,
     .intro-line2 {
       font-size: 2rem;
       color: silver;
+      white-space: nowrap;
       overflow: hidden;
       width: 0;
-      display: inline-block;
-      white-space: nowrap;
     }
 
     .intro-line1.animate {
@@ -76,43 +68,39 @@
     }
 
     @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
     }
 
     @keyframes typing2 {
-      from { width: 0; }
-      to { width: 100%; }
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
     }
 
     @keyframes blink-caret {
-      0%, 100% { border-color: transparent; }
-      50% { border-color: white; }
+      0%,
+      100% {
+        border-color: transparent;
+      }
+      50% {
+        border-color: white;
+      }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @media (max-width: 600px) {
-      .intro-line1,
-      .intro-line2 {
-        font-size: 1.4rem;
-        white-space: normal;
-        overflow-wrap: break-word;
-        width: auto;
-        display: block;
+      from {
+        opacity: 0;
       }
-
-      .intro-line1.animate,
-      .intro-line2.animate {
-        animation: none;
-        border-right: none;
-      }
-
-      .enter-btn {
-        width: 80%;
+      to {
+        opacity: 1;
       }
     }
   </style>
@@ -139,4 +127,4 @@
     <button class="enter-btn" onclick="location.href='BotPage.html'">Enter Site</button>
   </div>
 </body>
-</html>
+</html> 
