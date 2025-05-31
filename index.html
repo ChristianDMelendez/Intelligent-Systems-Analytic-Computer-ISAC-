@@ -32,8 +32,7 @@
       animation: fadeIn 2s ease-in;
       z-index: 1;
       position: relative;
-      width: 100%;
-      max-width: 90vw;
+      max-width: 100vw;
     }
 
     .intro-line1,
@@ -43,6 +42,7 @@
       white-space: nowrap;
       overflow: hidden;
       width: 0;
+      margin: 0 auto;
     }
 
     .intro-line1.animate {
@@ -95,15 +95,22 @@
     }
 
     @media (max-width: 600px) {
-      .intro-line1,
-      .intro-line2 {
-        font-size: 1.3rem;
-        white-space: nowrap;
-        width: 100%;
+      .intro-container {
+        padding: 0 1rem;
       }
 
-      .enter-btn {
-        width: 80%;
+      .intro-line1,
+      .intro-line2 {
+        font-size: 1.4rem;
+        white-space: normal;
+        overflow: visible;
+        width: auto;
+      }
+
+      .intro-line1.animate,
+      .intro-line2.animate {
+        animation: none;
+        border-right: none;
       }
     }
   </style>
