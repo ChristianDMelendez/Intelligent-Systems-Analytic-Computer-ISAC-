@@ -191,6 +191,38 @@
       link.click();
       document.body.removeChild(link);
     }
+
+    function handleInput() {
+      const inputField = document.getElementById('user-input');
+      const userText = inputField.value.trim();
+      if (!userText) return;
+      const chatbox = document.getElementById('chatbox');
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.textContent = 'You: ' + userText;
+      chatbox.appendChild(userMsg);
+      inputField.value = '';
+
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'msg bot';
+        botMsg.textContent = 'I.S.A.C: (response here for: ' + userText + ')';
+        chatbox.appendChild(botMsg);
+      }, 500);
+    }
+
+    function startMic() {
+      alert("Mic feature coming soon!");
+    }
+
+    function renderTabs() {
+      const tabContainer = document.getElementById("memory-tabs");
+      tabContainer.innerHTML = "<div class='memory-tab'>Session 1</div>";
+    }
+
+    function clearMemory() {
+      document.getElementById("chatbox").innerHTML = "";
+    }
   </script>
 
   <script>
