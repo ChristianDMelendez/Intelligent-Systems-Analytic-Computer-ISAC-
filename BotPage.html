@@ -7,42 +7,56 @@
   <script src="https://code.responsivevoice.org/responsivevoice.js?key=2KjjQNCF"></script>
   <script>responsiveVoice.setDefaultVoice("Australian Male");</script>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
+      height: 100%;
       background: #000;
       color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
+      height: 100vh;
       padding: 1rem;
+      box-sizing: border-box;
     }
+
     h1 {
       color: silver;
       text-shadow: 0 0 8px white;
-      margin-top: 20px;
+      margin-top: 0;
       text-align: center;
     }
+
     #chatbox {
       width: 100%;
       max-width: 700px;
-      height: 300px;
+      flex-grow: 1;
       background: #111;
       border: 1px solid silver;
       border-radius: 10px;
       padding: 20px;
       overflow-y: auto;
-      margin-bottom: 20px;
+      margin: 1rem 0;
       box-shadow: 0 0 12px silver;
+      min-height: 200px;
     }
+
     .msg { margin-bottom: 10px; }
     .user { color: white; }
     .bot { color: silver; }
+
     #input-area {
       display: flex;
       width: 100%;
       max-width: 700px;
+      flex-shrink: 0;
     }
+
     #user-input {
       flex: 1;
       padding: 10px;
@@ -53,6 +67,7 @@
       border-right: none;
       border-radius: 5px 0 0 5px;
     }
+
     button {
       padding: 10px 20px;
       font-size: 1rem;
@@ -61,20 +76,25 @@
       color: black;
       cursor: pointer;
     }
+
     button:hover {
       background: white;
     }
+
     #memory-wrapper {
-      margin-top: 20px;
+      margin-top: 1rem;
       width: 100%;
       max-width: 700px;
+      flex-shrink: 0;
     }
+
     #memory-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 10px;
     }
+
     .memory-tab {
       background: #222;
       color: silver;
@@ -83,31 +103,49 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
     .memory-tab:hover {
       background: silver;
       color: black;
     }
+
     @media (max-width: 600px) {
       #chatbox, #input-area, #memory-wrapper {
         max-width: 100%;
+      }
+
+      #input-area {
+        flex-direction: column;
+      }
+
+      #user-input {
+        border-radius: 5px 5px 0 0;
+        border-right: 1px solid silver;
+      }
+
+      button {
+        border-radius: 0 0 5px 5px;
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <h1>I.S.A.C Terminal</h1>
-  <div id="chatbox"></div>
+  <div id="wrapper">
+    <h1>I.S.A.C Terminal</h1>
+    <div id="chatbox"></div>
 
-  <div id="input-area">
-    <input type="text" id="user-input" placeholder="Type your command..." />
-    <button onclick="handleInput()">Send</button>
-    <button onclick="startMic()">🎤</button>
-  </div>
+    <div id="input-area">
+      <input type="text" id="user-input" placeholder="Type your command..." />
+      <button onclick="handleInput()">Send</button>
+      <button onclick="startMic()">🎤</button>
+    </div>
 
-  <div id="memory-wrapper">
-    <div id="memory-tabs"></div>
-    <button onclick="renderTabs()">🧠 Show Chat History</button>
-    <button onclick="clearMemory()">🗑️ Clear Chat History</button>
+    <div id="memory-wrapper">
+      <div id="memory-tabs"></div>
+      <button onclick="renderTabs()">🧠 Show Chat History</button>
+      <button onclick="clearMemory()">🗑️ Clear Chat History</button>
+    </div>
   </div>
 
   <script>
