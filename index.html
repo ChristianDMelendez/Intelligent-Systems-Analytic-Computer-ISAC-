@@ -70,6 +70,11 @@
       animation: typing3 2s steps(20, end) forwards, blink-caret 0.75s step-end infinite;
     }
 
+    .intro-line.done {
+      border-right: none !important;
+      animation: none !important;
+    }
+
     .enter-btn {
       margin-top: 2rem;
       padding: 0.75rem 2rem;
@@ -133,15 +138,15 @@
       line1.classList.add('animate1');
 
       line1.addEventListener('animationend', () => {
-        line1.style.borderRight = 'none';
+        line1.classList.add('done');
         line2.classList.add('animate2');
 
         line2.addEventListener('animationend', () => {
-          line2.style.borderRight = 'none';
+          line2.classList.add('done');
           line3.classList.add('animate3');
 
           line3.addEventListener('animationend', () => {
-            line3.style.borderRight = 'none';
+            line3.classList.add('done');
           }, { once: true });
         }, { once: true });
       }, { once: true });
