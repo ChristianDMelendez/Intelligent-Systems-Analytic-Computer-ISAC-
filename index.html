@@ -55,17 +55,17 @@
 
     .intro-line.animate1 {
       border-right: 2px solid white;
-      animation: typing1 2s steps(25, end) forwards, blink-caret 0.75s step-end infinite;
+      animation: typing1 1.8s steps(24, end) forwards, blink-caret 0.75s step-end infinite;
     }
 
     .intro-line.animate2 {
       border-right: 2px solid white;
-      animation: typing2 3s steps(35, end) forwards, blink-caret 0.75s step-end infinite;
+      animation: typing2 2.2s steps(33, end) forwards, blink-caret 0.75s step-end infinite;
     }
 
     .intro-line.animate3 {
       border-right: 2px solid white;
-      animation: typing3 2s steps(20, end) forwards, blink-caret 0.75s step-end infinite;
+      animation: typing3 1.6s steps(17, end) forwards, blink-caret 0.75s step-end infinite;
     }
 
     .intro-line.done {
@@ -96,17 +96,17 @@
 
     @keyframes typing1 {
       from { width: 0; }
-      to { width: 100%; }
+      to { width: 24ch; }
     }
 
     @keyframes typing2 {
       from { width: 0; }
-      to { width: 100%; }
+      to { width: 33ch; }
     }
 
     @keyframes typing3 {
       from { width: 0; }
-      to { width: 100%; }
+      to { width: 17ch; }
     }
 
     @keyframes blink-caret {
@@ -123,7 +123,6 @@
       .intro-line {
         font-size: 1.2rem;
         white-space: nowrap;
-        width: 100%;
         display: block;
       }
     }
