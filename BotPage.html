@@ -159,6 +159,7 @@
     <div class="history-buttons">
       <button onclick="renderTabs()">❌ Hide Chat History</button>
       <button onclick="clearMemory()">🗑️ Clear Chat History</button>
+      <button onclick="saveLastResponse()">📄 Save Response</button>
     </div>
   </div>
 
@@ -183,6 +184,18 @@
       const entry = { session, sender, text, timestamp: new Date().toISOString() };
       memory.push(entry);
       localStorage.setItem("isac_memory", JSON.stringify(memory));
+    }
+
+    function saveLastResponse() {
+      const messages = Array.from(chatbox.querySelectorAll('.msg.bot'));
+      if (!messages.length) return alert("No bot response to save.");
+      const lastText = messages[messages.length - 1].textContent.replace(/^I\.S\.A\.C: /, "");
+
+      const blob = new Blob([lastText], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'ISAC_response.txt';
+      link.click();
     }
 
     let tabsVisible = false;
@@ -268,7 +281,7 @@
           message: text,
           chat_history: pastMessages,
           temperature: 0.4,
-          max_tokens: 150,
+          max_tokens: 7000,
           prompt_truncation: "AUTO"
         })
       });
