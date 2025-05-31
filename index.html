@@ -135,22 +135,22 @@
       const line3 = document.getElementById('line3');
 
       line1.classList.add('visible', 'animate1');
-      line1.addEventListener('animationend', () => {
+      setTimeout(() => {
         line1.classList.remove('animate1');
         line1.classList.add('done');
 
         line2.classList.add('visible', 'animate2');
-        line2.addEventListener('animationend', () => {
+        setTimeout(() => {
           line2.classList.remove('animate2');
           line2.classList.add('done');
 
           line3.classList.add('visible', 'animate3');
-          line3.addEventListener('animationend', () => {
+          setTimeout(() => {
             line3.classList.remove('animate3');
             line3.classList.add('done');
-          }, { once: true });
-        }, { once: true });
-      }, { once: true });
+          }, 1400);
+        }, 2000);
+      }, 1800);
     }
 
     document.addEventListener('DOMContentLoaded', runTypingAnimation);
