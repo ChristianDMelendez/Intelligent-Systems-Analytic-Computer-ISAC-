@@ -46,6 +46,13 @@
       width: 0;
       margin: 0 auto;
       display: inline-block;
+      visibility: hidden;
+    }
+
+    .intro-line.animate1,
+    .intro-line.animate2,
+    .intro-line.animate3 {
+      visibility: visible;
     }
 
     .intro-line.animate1 {
@@ -125,15 +132,15 @@
 
       line1.classList.add('animate1');
 
-      setTimeout(() => {
+      line1.addEventListener('animationend', () => {
         line1.style.borderRight = 'none';
         line2.classList.add('animate2');
-      }, 2200);
 
-      setTimeout(() => {
-        line2.style.borderRight = 'none';
-        line3.classList.add('animate3');
-      }, 5500);
+        line2.addEventListener('animationend', () => {
+          line2.style.borderRight = 'none';
+          line3.classList.add('animate3');
+        }, { once: true });
+      }, { once: true });
     }
 
     document.addEventListener('DOMContentLoaded', runTypingAnimation);
