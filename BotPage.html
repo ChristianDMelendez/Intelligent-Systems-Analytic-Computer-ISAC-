@@ -100,7 +100,7 @@
     }
 
     #memory-tabs {
-      display: flex;
+      display: none;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 10px;
@@ -165,24 +165,25 @@
     <div class="input-buttons">
       <button onclick="handleInput()">Send</button>
       <button onclick="startMic()">🎤</button>
-      <button onclick="toggleMute()">🔇 Mute</button>
     </div>
   </div>
 
   <div id="memory-wrapper">
     <div id="memory-tabs"></div>
     <div class="history-buttons">
-      <button onclick="renderTabs()">❌ Hide Chat History</button>
+      <button id="toggle-tab-btn" onclick="toggleTabs()">❌ Hide Chat History</button>
       <button onclick="clearMemory()">🗑️ Clear Chat History</button>
       <button onclick="saveLastResponse()">📄 Save Response</button>
     </div>
   </div>
 
   <script>
-    let isMuted = false;
-
-    function toggleMute() {
-      isMuted = !isMuted;
+    function toggleTabs() {
+      const tabs = document.getElementById("memory-tabs");
+      const button = document.getElementById("toggle-tab-btn");
+      const showing = tabs.style.display === "none";
+      tabs.style.display = showing ? "flex" : "none";
+      button.innerHTML = showing ? "❌ Hide Chat History" : "📂 Show Chat History";
     }
 
     document.querySelectorAll('button').forEach(btn => {
@@ -235,10 +236,8 @@
       chatbox.appendChild(botMsg);
       chatbox.scrollTop = chatbox.scrollHeight;
 
-      if (!isMuted) {
-        responsiveVoice.cancel();
-        responsiveVoice.speak(reply, "Australian Male");
-      }
+      responsiveVoice.cancel();
+      responsiveVoice.speak(reply, "Australian Male");
 
       saveSession("Session 1", chatbox.innerHTML);
     }
@@ -271,6 +270,7 @@
           tabContainer.appendChild(tab);
         }
       }
+      document.getElementById("memory-tabs").style.display = "flex";
     }
 
     function saveSession(name, content) {
