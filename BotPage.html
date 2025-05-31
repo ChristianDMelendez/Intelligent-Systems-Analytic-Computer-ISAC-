@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -159,7 +159,6 @@
     <div class="history-buttons">
       <button onclick="renderTabs()">❌ Hide Chat History</button>
       <button onclick="clearMemory()">🗑️ Clear Chat History</button>
-      <button onclick="saveLastResponse()">📄 Save Response</button>
     </div>
   </div>
 
@@ -170,7 +169,7 @@
     let session = sessionStorage.getItem("isac_session_id");
 
     if (!session) {
-      session = Session ${new Date().toLocaleString()};
+      session = `Session ${new Date().toLocaleString()}`;
       sessionStorage.setItem("isac_session_id", session);
     }
 
@@ -184,18 +183,6 @@
       const entry = { session, sender, text, timestamp: new Date().toISOString() };
       memory.push(entry);
       localStorage.setItem("isac_memory", JSON.stringify(memory));
-    }
-
-    function saveLastResponse() {
-      const messages = Array.from(chatbox.querySelectorAll('.msg.bot'));
-      if (!messages.length) return alert("No bot response to save.");
-      const lastText = messages[messages.length - 1].textContent.replace(/^I\.S\.A\.C: /, "");
-
-      const blob = new Blob([lastText], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'ISAC_response.txt';
-      link.click();
     }
 
     let tabsVisible = false;
@@ -227,7 +214,7 @@
       const entries = memory.filter(m => m.session === sess);
       entries.forEach(entry => {
         const div = document.createElement("div");
-        div.textContent = [${entry.sender.toUpperCase()}] ${entry.text};
+        div.textContent = `[${entry.sender.toUpperCase()}] ${entry.text}`;
         div.className = "msg " + entry.sender;
         chatbox.appendChild(div);
       });
@@ -266,7 +253,7 @@
 
       pastMessages.unshift({
         role: "SYSTEM",
-        message: The current date is ${now.toLocaleDateString()} and the current time is ${now.toLocaleTimeString()}.
+        message: `The current date is ${now.toLocaleDateString()} and the current time is ${now.toLocaleTimeString()}.`
       });
 
       pastMessages.push({ role: "USER", message: text });
@@ -281,7 +268,7 @@
           message: text,
           chat_history: pastMessages,
           temperature: 0.4,
-          max_tokens: 7000,
+          max_tokens: 150,
           prompt_truncation: "AUTO"
         })
       });
@@ -292,14 +279,14 @@
         .replace(/cohere/gi, "Silent Industries")
         .replace(/Command,? (a )?large language model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
         .replace(/I'm an AI model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
-        .replace(/[*_~#<>[\]{}]/g, "");
+        .replace(/[*_~#`<>[\]{}]/g, "");
 
       appendMessage("I.S.A.C: " + reply, "bot");
       speak(reply);
     }
 
     function speak(text) {
-      responsiveVoice.speak(text.replace(/[*_~#<>[\]{}]/g, ""), "Australian Male", {
+      responsiveVoice.speak(text.replace(/[*_~#`<>[\]{}]/g, ""), "Australian Male", {
         rate: 1,
         fallback: true
       });
