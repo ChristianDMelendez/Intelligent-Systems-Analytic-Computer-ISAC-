@@ -96,18 +96,19 @@
     }
 
     @media (max-width: 600px) {
+      .intro-line1,
+      .intro-line2 {
+        font-size: 1.4rem;
+        white-space: normal;
+        overflow-wrap: break-word;
+        width: auto;
+        display: block;
+      }
+
       .intro-line1.animate,
       .intro-line2.animate {
         animation: none;
-        width: auto;
-        white-space: normal;
-      }
-
-      .intro-line1,
-      .intro-line2 {
-        font-size: 1.5rem;
-        display: block;
-        width: 100%;
+        border-right: none;
       }
 
       .enter-btn {
