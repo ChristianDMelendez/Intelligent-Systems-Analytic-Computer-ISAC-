@@ -238,6 +238,8 @@
       if (!isMuted) {
         responsiveVoice.speak(reply, "Australian Male");
       }
+
+      saveSession("Session 1", chatbox.innerHTML);
     }
 
     function startMic() {
@@ -253,7 +255,22 @@
 
     function renderTabs() {
       const tabContainer = document.getElementById("memory-tabs");
-      tabContainer.innerHTML = "<div class='memory-tab'>Session 1</div>";
+      tabContainer.innerHTML = "";
+      for (let key in localStorage) {
+        if (key.startsWith("session_")) {
+          const tab = document.createElement("div");
+          tab.className = "memory-tab";
+          tab.textContent = key.replace("session_", "");
+          tab.onclick = () => {
+            document.getElementById("chatbox").innerHTML = localStorage.getItem(key);
+          };
+          tabContainer.appendChild(tab);
+        }
+      }
+    }
+
+    function saveSession(name, content) {
+      localStorage.setItem("session_" + name, content);
     }
 
     function clearMemory() {
