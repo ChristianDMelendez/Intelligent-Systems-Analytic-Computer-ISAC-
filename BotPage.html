@@ -147,7 +147,11 @@
         flex-direction: column;
       }
       .input-buttons, .history-buttons {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .history-buttons button {
+        width: calc(50% - 0.5rem);
       }
     }
   </style>
@@ -161,6 +165,7 @@
     <div class="input-buttons">
       <button onclick="handleInput()">Send</button>
       <button onclick="startMic()">🎤</button>
+      <button onclick="toggleMute()">🔇 Mute</button>
     </div>
   </div>
 
@@ -174,6 +179,12 @@
   </div>
 
   <script>
+    let isMuted = false;
+
+    function toggleMute() {
+      isMuted = !isMuted;
+    }
+
     document.querySelectorAll('button').forEach(btn => {
       btn.disabled = false;
       btn.style.pointerEvents = 'auto';
@@ -223,7 +234,10 @@
       botMsg.textContent = 'I.S.A.C: ' + reply;
       chatbox.appendChild(botMsg);
       chatbox.scrollTop = chatbox.scrollHeight;
-      responsiveVoice.speak(reply, "Australian Male");
+
+      if (!isMuted) {
+        responsiveVoice.speak(reply, "Australian Male");
+      }
     }
 
     function startMic() {
