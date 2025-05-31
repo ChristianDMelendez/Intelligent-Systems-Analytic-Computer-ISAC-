@@ -24,6 +24,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 1rem;
     }
 
     .intro-container {
@@ -31,8 +32,8 @@
       animation: fadeIn 2s ease-in;
       z-index: 1;
       position: relative;
+      width: 100%;
       max-width: 90vw;
-      padding: 1rem;
     }
 
     .intro-line1,
@@ -42,7 +43,7 @@
       white-space: nowrap;
       overflow: hidden;
       width: 0;
-      max-width: 100%;
+      display: inline-block;
     }
 
     .intro-line1.animate {
@@ -95,6 +96,13 @@
     }
 
     @media (max-width: 600px) {
+      .intro-line1.animate,
+      .intro-line2.animate {
+        white-space: normal !important;
+        word-break: break-word;
+        overflow: visible;
+      }
+
       .intro-line1,
       .intro-line2 {
         font-size: 1.5rem;
