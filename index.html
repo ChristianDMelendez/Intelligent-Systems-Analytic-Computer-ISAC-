@@ -35,24 +35,29 @@
       max-width: 100vw;
     }
 
-    .intro-line1,
-    .intro-line2 {
+    .intro-line {
       font-size: 2rem;
       color: silver;
       white-space: nowrap;
       overflow: hidden;
       width: 0;
       margin: 0 auto;
+      display: inline-block;
     }
 
-    .intro-line1.animate {
+    .intro-line.animate1 {
       border-right: 2px solid white;
-      animation: typing 3s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+      animation: typing1 2s steps(25, end) forwards, blink-caret 0.75s step-end infinite;
     }
 
-    .intro-line2.animate {
+    .intro-line.animate2 {
       border-right: 2px solid white;
-      animation: typing2 4s steps(60, end) forwards, blink-caret 0.75s step-end infinite;
+      animation: typing2 3s steps(35, end) forwards, blink-caret 0.75s step-end infinite;
+    }
+
+    .intro-line.animate3 {
+      border-right: 2px solid white;
+      animation: typing3 2s steps(20, end) forwards, blink-caret 0.75s step-end infinite;
     }
 
     .enter-btn {
@@ -74,12 +79,17 @@
       transform: scale(1.05);
     }
 
-    @keyframes typing {
+    @keyframes typing1 {
       from { width: 0; }
       to { width: 100%; }
     }
 
     @keyframes typing2 {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes typing3 {
       from { width: 0; }
       to { width: 100%; }
     }
@@ -95,27 +105,31 @@
     }
 
     @media (max-width: 768px) {
-      .intro-line1,
-      .intro-line2 {
-        font-size: 1.4rem;
-        white-space: normal;
-        overflow-wrap: break-word;
-        width: auto;
-        display: inline-block;
+      .intro-line {
+        font-size: 1.2rem;
+        white-space: nowrap;
+        width: 0;
+        display: block;
       }
     }
   </style>
   <script>
     function runTypingAnimation() {
-      const line1 = document.querySelector('.intro-line1');
-      const line2 = document.querySelector('.intro-line2');
+      const line1 = document.getElementById('line1');
+      const line2 = document.getElementById('line2');
+      const line3 = document.getElementById('line3');
 
-      line1.classList.add('animate');
+      line1.classList.add('animate1');
 
       setTimeout(() => {
         line1.style.borderRight = 'none';
-        line2.classList.add('animate');
-      }, 3000);
+        line2.classList.add('animate2');
+      }, 2200);
+
+      setTimeout(() => {
+        line2.style.borderRight = 'none';
+        line3.classList.add('animate3');
+      }, 5500);
     }
 
     document.addEventListener('DOMContentLoaded', runTypingAnimation);
@@ -123,8 +137,9 @@
 </head>
 <body>
   <div class="intro-container">
-    <div class="intro-line1">Welcome Division Agent</div>
-    <div class="intro-line2">I'm Intelligent Systems Analytic Computer (ISAC)</div>
+    <div id="line1" class="intro-line">Welcome Division Agent</div>
+    <div id="line2" class="intro-line">I'm Intelligent Systems Analytic</div>
+    <div id="line3" class="intro-line">Computer (ISAC)</div>
     <button class="enter-btn" onclick="location.href='BotPage.html'">Enter Site</button>
   </div>
 </body>
