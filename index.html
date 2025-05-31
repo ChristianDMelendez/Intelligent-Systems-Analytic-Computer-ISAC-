@@ -37,7 +37,7 @@
 
     .intro-line1,
     .intro-line2 {
-      font-size: 2rem;
+      font-size: clamp(1.2rem, 5vw, 2rem);
       color: silver;
       white-space: nowrap;
       overflow: hidden;
@@ -92,31 +92,6 @@
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
-    }
-
-    @media (max-width: 600px) {
-      .intro-container {
-        padding: 0 1rem;
-      }
-
-      .intro-line1,
-      .intro-line2 {
-        font-size: 1.4rem;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 0;
-        margin: 0 auto;
-      }
-
-      .intro-line1.animate {
-        animation: typing 3s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
-        border-right: 2px solid white;
-      }
-
-      .intro-line2.animate {
-        animation: typing2 4s steps(60, end) forwards, blink-caret 0.75s step-end infinite;
-        border-right: 2px solid white;
-      }
     }
   </style>
   <script>
