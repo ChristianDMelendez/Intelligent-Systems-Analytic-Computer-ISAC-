@@ -184,6 +184,7 @@
       const showing = tabs.style.display === "none";
       tabs.style.display = showing ? "flex" : "none";
       button.innerHTML = showing ? "❌ Hide Chat History" : "📂 Show Chat History";
+      if (showing) renderTabs();
     }
 
     document.querySelectorAll('button').forEach(btn => {
@@ -239,7 +240,10 @@
       responsiveVoice.cancel();
       responsiveVoice.speak(reply, "Australian Male");
 
-      saveSession("Session 1", chatbox.innerHTML);
+      const allMessages = Array.from(document.querySelectorAll('#chatbox .msg'));
+      const starter = allMessages.find(m => m.classList.contains('user'))?.textContent?.replace('You: ', '').slice(0, 30) || 'Session';
+      localStorage.setItem("session_" + starter, chatbox.innerHTML);
+      renderTabs();
     }
 
     function startMic() {
@@ -270,11 +274,6 @@
           tabContainer.appendChild(tab);
         }
       }
-      document.getElementById("memory-tabs").style.display = "flex";
-    }
-
-    function saveSession(name, content) {
-      localStorage.setItem("session_" + name, content);
     }
 
     function clearMemory() {
