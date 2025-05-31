@@ -102,15 +102,20 @@
       .intro-line1,
       .intro-line2 {
         font-size: 1.4rem;
-        white-space: normal;
-        overflow: visible;
-        width: auto;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        margin: 0 auto;
       }
 
-      .intro-line1.animate,
+      .intro-line1.animate {
+        animation: typing 3s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+        border-right: 2px solid white;
+      }
+
       .intro-line2.animate {
-        animation: none;
-        border-right: none;
+        animation: typing2 4s steps(60, end) forwards, blink-caret 0.75s step-end infinite;
+        border-right: 2px solid white;
       }
     }
   </style>
