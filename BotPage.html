@@ -133,17 +133,28 @@
       localStorage.setItem("isac_memory", JSON.stringify(memory));
     }
 
+    let tabsVisible = false;
     function renderTabs() {
       const tabContainer = document.getElementById("memory-tabs");
-      tabContainer.innerHTML = "";
-      const sessions = [...new Set(memory.map(m => m.session))];
-      sessions.forEach(sess => {
-        const tab = document.createElement("div");
-        tab.className = "memory-tab";
-        tab.textContent = sess;
-        tab.onclick = () => showSession(sess);
-        tabContainer.appendChild(tab);
-      });
+      const button = document.querySelector('button[onclick="renderTabs()"]');
+      
+      if (tabsVisible) {
+        tabContainer.innerHTML = "";
+        tabsVisible = false;
+        button.textContent = "🧠 Show Chat History";
+      } else {
+        tabContainer.innerHTML = "";
+        const sessions = [...new Set(memory.map(m => m.session))];
+        sessions.forEach(sess => {
+          const tab = document.createElement("div");
+          tab.className = "memory-tab";
+          tab.textContent = sess;
+          tab.onclick = () => showSession(sess);
+          tabContainer.appendChild(tab);
+        });
+        tabsVisible = true;
+        button.textContent = "❌ Hide Chat History";
+      }
     }
 
     function showSession(sess) {
