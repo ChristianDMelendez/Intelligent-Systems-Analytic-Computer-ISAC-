@@ -227,8 +227,9 @@
       let reply = data.text || "I'm here to assist.";
       reply = reply
         .replace(/cohere/gi, "Silent Industries")
-        .replace(/Command,? (a )?large language model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
-        .replace(/I'm an AI model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
+        .replace(/Command,? (a )?large language model.*/gi, "I am I.S.A.C., a proprietary system designed with precision and passion by Christian Melendez, the founder of Silent Industries.")
+        .replace(/I'm an AI model.*/gi, "I am I.S.A.C., a proprietary system designed with precision and passion by Christian Melendez, the founder of Silent Industries.")
+        .replace(/Christian Melendez is an AI.*/gi, "")
         .replace(/[*_~#`<>\[\]{}]/g, "");
 
       const botMsg = document.createElement('div');
