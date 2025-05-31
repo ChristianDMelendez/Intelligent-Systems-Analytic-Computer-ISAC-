@@ -69,8 +69,9 @@
     }
 
     .intro-line.done {
-      border-right: none !important;
-      animation: none !important;
+      border-right: none;
+      animation: none;
+      width: auto;
     }
 
     .enter-btn {
@@ -135,18 +136,18 @@
 
       line1.classList.add('visible', 'animate1');
       line1.addEventListener('animationend', () => {
-        line1.classList.add('done');
         line1.classList.remove('animate1');
+        line1.classList.add('done');
 
         line2.classList.add('visible', 'animate2');
         line2.addEventListener('animationend', () => {
-          line2.classList.add('done');
           line2.classList.remove('animate2');
+          line2.classList.add('done');
 
           line3.classList.add('visible', 'animate3');
           line3.addEventListener('animationend', () => {
-            line3.classList.add('done');
             line3.classList.remove('animate3');
+            line3.classList.add('done');
           }, { once: true });
         }, { once: true });
       }, { once: true });
