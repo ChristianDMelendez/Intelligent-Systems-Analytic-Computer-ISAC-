@@ -236,6 +236,7 @@
       chatbox.scrollTop = chatbox.scrollHeight;
 
       if (!isMuted) {
+        responsiveVoice.cancel();
         responsiveVoice.speak(reply, "Australian Male");
       }
 
@@ -262,7 +263,10 @@
           tab.className = "memory-tab";
           tab.textContent = key.replace("session_", "");
           tab.onclick = () => {
-            document.getElementById("chatbox").innerHTML = localStorage.getItem(key);
+            const saved = localStorage.getItem(key);
+            if (saved) {
+              document.getElementById("chatbox").innerHTML = saved;
+            }
           };
           tabContainer.appendChild(tab);
         }
