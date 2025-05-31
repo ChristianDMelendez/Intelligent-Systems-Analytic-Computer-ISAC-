@@ -139,6 +139,10 @@
         line2.addEventListener('animationend', () => {
           line2.style.borderRight = 'none';
           line3.classList.add('animate3');
+
+          line3.addEventListener('animationend', () => {
+            line3.style.borderRight = 'none';
+          }, { once: true });
         }, { once: true });
       }, { once: true });
     }
