@@ -179,7 +179,13 @@
       btn.style.pointerEvents = 'auto';
     });
 
-    function handleInput() {
+    document.getElementById("user-input").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        handleInput();
+      }
+    });
+
+    async function handleInput() {
       const inputField = document.getElementById('user-input');
       const userText = inputField.value.trim();
       if (!userText) return;
@@ -190,12 +196,34 @@
       chatbox.appendChild(userMsg);
       inputField.value = '';
 
-      const replyText = `This is a simulated response for: ${userText}`;
+      const response = await fetch("https://api.cohere.ai/v1/chat", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer r3CY08vxFVoJgvmeiXth226N4YEuzY4Q6cK2oLrO",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: userText,
+          temperature: 0.4,
+          max_tokens: 7000,
+          prompt_truncation: "AUTO"
+        })
+      });
+
+      const data = await response.json();
+      let reply = data.text || "I'm here to assist.";
+      reply = reply
+        .replace(/cohere/gi, "Silent Industries")
+        .replace(/Command,? (a )?large language model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
+        .replace(/I'm an AI model.*/gi, "I am I.S.A.C., created by Christian Melendez of Silent Industries.")
+        .replace(/[*_~#`<>\[\]{}]/g, "");
+
       const botMsg = document.createElement('div');
       botMsg.className = 'msg bot';
-      botMsg.textContent = 'I.S.A.C: ' + replyText;
+      botMsg.textContent = 'I.S.A.C: ' + reply;
       chatbox.appendChild(botMsg);
-      responsiveVoice.speak(replyText, "Australian Male");
+      chatbox.scrollTop = chatbox.scrollHeight;
+      responsiveVoice.speak(reply, "Australian Male");
     }
 
     function startMic() {
