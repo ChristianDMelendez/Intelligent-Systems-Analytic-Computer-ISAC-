@@ -226,12 +226,13 @@
       const data = await response.json();
       let reply = data.text || "I'm here to assist.";
       reply = reply
-        .replace(/cohere/gi, "Silent Industries")
-        .replace(/Command,? (a )?large language model.*/gi, "I am I.S.A.C., a proprietary system designed with precision and passion by Christian Melendez, the founder of Silent Industries.")
-        .replace(/I'm an AI model.*/gi, "I am I.S.A.C., a proprietary system designed with precision and passion by Christian Melendez, the founder of Silent Industries.")
-        .replace(/My name is Command.*/gi, "I am I.S.A.C., a proprietary system created by Christian Melendez of Silent Industries.")
-        .replace(/Christian Melendez is an AI.*/gi, "")
-        .replace(/[*_~#`<>\[\]{}]/g, "");
+  .replace(/cohere/gi, "Silent Industries")
+  .replace(/Command,? (a )?large language model.*/gi, "I am I.S.A.C., a proprietary system designed with precision and passion by Christian Melendez, the founder of Silent Industries.")
+  .replace(/I'm an AI model.*/gi, "I am I.S.A.C., a proprietary system designed with precision and passion by Christian Melendez, the founder of Silent Industries.")
+  .replace(/My name is Command.*/gi, "I am I.S.A.C., a proprietary system created by Christian Melendez of Silent Industries.")
+  .replace(/Christian Melendez is an AI.*/gi, "")
+  .replace(/^I am I am /, "I am ")  // 👈 THIS fixes the stutter
+  .replace(/[*_~#`<>\[\]{}]/g, "");
 
       const botMsg = document.createElement('div');
       botMsg.className = 'msg bot';
